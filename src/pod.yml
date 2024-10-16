@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: conv-app
   labels:
-    components: frontend
+    component: frontend
 spec:
   containers:
     - name: conv-app
@@ -12,7 +12,7 @@ spec:
         - containerPort: 80
       resources:
         limits:
-          memory: "128Mi"
-          cpu: "20m"
+          memory: "512Mi"
+          cpu: "200m"
 
 
