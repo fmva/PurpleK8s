@@ -6,11 +6,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      component: frontend
+      components: frontend
   template:
     metadata:
       labels:
-        component: frontend
+        components: frontend
     spec:
       containers:
         - name: conv-app
