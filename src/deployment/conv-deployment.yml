@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conv-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: service-backend
+  template:
+    metadata:
+      labels:
+        components: service-backend
+    spec:
+      containers:
+        - name: conv-service
+          image: antonlarichev/conv-service:1.0
+          ports:
+            - containerPort: 3001
+          env:
+            - name: AMQP_EXCHANGE
+              valueFrom:
+                secretKeyRef:
+                  name: conv-secret
+                  key: AMQP_EXCHANGE
+            - name: AMQP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: conv-secret
+                  key: AMQP_USER
+            - name: AMQP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: conv-secret
+                  key: AMQP_PASSWORD
+            - name: AMQP_HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: conv-secret
+                  key: AMQP_HOSTNAME
+            - name: AMQP_QUEUE
+              valueFrom:
+                secretKeyRef:
+                  name: conv-secret
+                  key: AMQP_QUEUE
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "300m"
+          volumeMounts:
+            - name: conv-service-data
+              mountPath: /opt/app/uploads
+      volumes:
+        - name: conv-service-data
+          persistentVolumeClaim:
+            claimName: conv-service-pvc

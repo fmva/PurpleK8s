@@ -21,3 +21,11 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "200m"
+          volumeMounts:
+            - name: test
+              mountPath: /etc/test
+              readOnly: true
+      volumes:
+        - name: test
+          configMap:
+            name: conv-config
