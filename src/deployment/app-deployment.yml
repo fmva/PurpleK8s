@@ -25,6 +25,9 @@ spec:
             - name: test
               mountPath: /etc/test
               readOnly: true
+          env:
+            - name: VITE_DOMAIN
+              value: ""
       volumes:
         - name: test
           configMap:
