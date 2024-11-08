@@ -21,3 +21,14 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "200m"
+          volumeMounts:
+            - name: test
+              mountPath: /etc/test
+              readOnly: true
+          env:
+            - name: VITE_DOMAIN
+              value: ""
+      volumes:
+        - name: test
+          configMap:
+            name: conv-config
