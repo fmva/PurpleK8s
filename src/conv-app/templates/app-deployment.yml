@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: {{ .Values.app.components }}
+  template:
+    metadata:
+      labels:
+        components: {{ .Values.app.components }}
+    spec:
+      containers:
+        - name: {{ .Values.app.components }}
+          image: "{{ .Values.app.image}}:{{ .Values.app.version }}"
+          ports:
+            - containerPort: {{ .Values.app.port }}
+          resources:
+            limits: {{ .Values.app.limits | toYaml | nindent 14 }}
+          volumeMounts:
+            - name: test
+              mountPath: /etc/test
+              readOnly: true
+          env:
+            - name: VITE_DOMAIN
+              value: {{ .Values.config.viteDomain }}
+      volumes:
+        - name: test
+          configMap:
+            name: {{ .Values.config.name }}
