@@ -1,0 +1,18 @@
+app:
+  name: conv-app
+  nameApi: conv-api
+  image: antonlarichev/conv-app
+  components: frontend
+  version: 1.2
+  port: 80
+  limits:
+    memory: "512Mi"
+    cpu: "200m"
+
+config:
+  name: conf-config
+  viteDomain: ""
+
+service:
+  name: conv-api
+  port: 3000
