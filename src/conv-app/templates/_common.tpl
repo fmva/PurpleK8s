@@ -1,7 +1,7 @@
 {{- define "env.template" }}
 - name: {{ .env }}
   valueForm:
-    secretRef:
+    secretKeyRef:
       name: "{{ .name }}"
       key: {{ .env }}
 {{- end }}
