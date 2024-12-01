@@ -21,13 +21,13 @@ spec:
             path: "/api"
             backend:
               service:
-                name: {{ .Values.service.name }}-cluster-ip
+                name: {{ .Values.api.name }}-cluster-ip
                 port:
-                  number: {{ .Values.service.port }}
+                  number: {{ .Values.api.port }}
           - pathType: Prefix
             path: "/uploads"
             backend:
               service:
-                name: {{ .Values.service.name }}-cluster-ip
+                name: {{ .Values.api.name }}-cluster-ip
                 port:
-                  number: {{ .Values.service.port }}
+                  number: {{ .Values.api.port }}
